@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetMeets - Find Pet-Friendly Places & Meet Other Pet Owners!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4a6fa5;
+        }
+
+        .logo span {
+            color: #ff6b6b;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 80px;
+            background: linear-gradient(135deg, #c2e9fb 0%, #a1c4fd 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #34495e;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+        }
+
+        /* Value Proposition */
+        .value-prop {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+
+        .value-prop h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #2c3e50;
+            font-size: 2.2rem;
+        }
+
+        .benefits {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .benefit {
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            text-align: center;
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .benefit:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #4a6fa5;
+        }
+
+        .benefit h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        /* Sign-up Form */
+        .signup {
+            padding: 80px 0;
+            background-color: #f0f7ff;
+            text-align: center;
+        }
+
+        .signup h2 {
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-size: 2.2rem;
+        }
+
+        .signup-form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #4a6fa5;
+            outline: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #4a6fa5;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #3a5a80;
+        }
+
+        .form-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        /* Locations Showcase */
+        .locations {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+
+        .locations h2 {
+            text-align: center;
+            margin-bottom: 50px;
+            color: #2c3e50;
+            font-size: 2.2rem;
+        }
+
+        .locations-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .location-card {
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .location-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .location-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .location-info {
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .location-info h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .location-info p {
+            color: #7f8c8d;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 50px 0;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ecf0f1;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo span {
+            color: #ff6b6b;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #34495e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .social-icon:hover {
+            background-color: #4a6fa5;
+        }
+
+        .copyright {
+            width: 100%;
+            text-align: center;
+            margin-top: 30px;
+            color: #bdc3c7;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .benefit {
+                min-width: 100%;
+            }
+
+            .location-card {
+                min-width: 100%;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .social-icons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">Pet<span>Meets</span></div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Find Pet-Friendly Places & Meet Other Pet Owners!</h1>
+            <p>Discover local pet-friendly spots, connect with fellow pet lovers, and create memorable experiences with your furry friends.</p>
+            <img src="https://images.unsplash.com/photo-1541876176131-3f5e84a7331a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Dogs at a park" class="hero-image">
+        </div>
+    </section>
+
+    <!-- Value Proposition -->
+    <section class="value-prop">
+        <div class="container">
+            <h2>Why Join PetMeets?</h2>
+            <div class="benefits">
+                <div class="benefit">
+                    <div class="benefit-icon">🔍</div>
+                    <h3>Discover Pet-Friendly Locations</h3>
+                    <p>Find parks, cafés, restaurants, and shops that welcome your pets nearby or in cities you plan to visit.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">👥</div>
+                    <h3>Connect With Pet Owners</h3>
+                    <p>Meet other pet parents, arrange playdates, and build a community of like-minded animal lovers.</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">📍</div>
+                    <h3>Share Your Favorite Spots</h3>
+                    <p>Help fellow pet owners by sharing your experiences and recommending pet-friendly places you love.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sign-up Form -->
+    <section class="signup">
+        <div class="container">
+            <h2>Join Our Community</h2>
+            <div class="signup-form">
+                <form id="email-form">
+                    <div class="form-group">
+                        <label for="name">Name (Optional)</label>
+                        <input type="text" id="name" placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address*</label>
+                        <input type="email" id="email" placeholder="your@email.com" required>
+                    </div>
+                    <button type="submit" class="btn">Get Notified When We Launch</button>
+                </form>
+                <div id="form-message" class="form-message"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locations Showcase -->
+    <section class="locations">
+        <div class="container">
+            <h2>Featured Pet-Friendly Locations</h2>
+            <div class="locations-grid">
+                <div class="location-card">
+                    <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Central Bark Park" class="location-img">
+                    <div class="location-info">
+                        <h3>Central Bark Park</h3>
+                        <p>A spacious off-leash park with separate areas for small and large dogs, water fountains, and agility equipment.</p>
+                    </div>
+                </div>
+                <div class="location-card">
+                    <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Paws Café" class="location-img">
+                    <div class="location-info">
+                        <h3>Paws Café</h3>
+                        <p>Enjoy your coffee with your furry friend by your side. Special treats and water bowls available for pets.</p>
+                    </div>
+                </div>
+                <div class="location-card">
+                    <img src="https://images.unsplash.com/photo-1535930891776-0c2dfb7fda1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Barking Boutique" class="location-img">
+                    <div class="location-info">
+                        <h3>Barking Boutique</h3>
+                        <p>A pet-friendly shopping destination with a wide selection of pet supplies and accessories for your furry companion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div>
+                <div class="footer-logo">Pet<span>Meets</span></div>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">t</a>
+                    <a href="#" class="social-icon">in</a>
+                    <a href="#" class="social-icon">ig</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2025 PetMeets. All rights reserved. | <a href="#" style="color: #bdc3c7;">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission handling
+        document.getElementById('email-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const formMessage = document.getElementById('form-message');
+            
+            // Basic validation
+            if (!emailInput.value) {
+                formMessage.textContent = 'Please enter your email address.';
+                formMessage.className = 'form-message error';
+                formMessage.style.display = 'block';
+                formMessage.style.backgroundColor = '#f8d7da';
+                formMessage.style.color = '#721c24';
+                return;
+            }
+            
+            // Simulate successful submission
+            formMessage.textContent = 'Thanks for joining! We\'ll notify you when PetMeets launches.';
+            formMessage.className = 'form-message success';
+            formMessage.style.display = 'block';
+            
+            // Clear form
+            nameInput.value = '';
+            emailInput.value = '';
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                formMessage.style.display = 'none';
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
